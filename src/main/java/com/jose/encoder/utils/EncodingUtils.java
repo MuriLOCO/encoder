@@ -22,10 +22,13 @@ public class EncodingUtils {
             return encoder.encode(input);
         }else {
             MessageDigest digest = MessageDigest.getInstance(encodingType.toString());
-            byte[] encodedhash = digest.digest(
+            byte[] encodedHash = digest.digest(
                     input.getBytes(StandardCharsets.UTF_8));
-            BigInteger no = new BigInteger(1, encodedhash);
-            return no.toString(16);
+            StringBuilder sb = new StringBuilder();
+            for (byte b : encodedHash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
         }
     }
 }
